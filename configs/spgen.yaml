@@ -1,0 +1,75 @@
+wandb:
+  project: spgen
+  mode: offline
+general:
+  random_seed: 0
+data:
+  background: white
+  num_workers: 4
+  two_training_imgs_per_example: false
+  one_training_img_per_example: false
+  dataset_type: srn
+  input_size:
+  - 128
+  - 128
+  category: cars
+  normalize_pose: true
+  use_occ: true
+  no_imgs_per_example: 5
+  num_train_cond: 2
+model:
+  diffuser:
+    steps: 1000
+    type: RF
+  type: query
+  embed_dims: 512
+  depth_num: 64
+  num_query: 512
+  num_encoder_layers: 6
+  num_decoder_layers: 6
+  num_heads: 8
+  num_gs_per_query: 10
+  max_scale: 0.1
+  querty_init: trunc_normal
+  return_intermediate: true
+  position_range:
+  - -0.6
+  - -0.6
+  - -0.6
+  - 0.6
+  - 0.6
+  - 0.6
+  feature_extractor_2d:
+    pretrained: false
+  unet:
+    self_condition: true
+    self_condition_images: seen
+optimization:
+  batch_size: 16
+  betas:
+  - 0.9
+  - 0.99
+  lr: 2.0e-05
+  n_iter: 300001
+  loss: l2
+  save_every: 10000
+  ema:
+    use: true
+    update_every: 10
+    decay: 0.995
+  hard_mining_proportion: 0.2
+  noisy_dropout_proportion: 0.5
+  penalize: seen_and_one_more
+  occ_loss_weight: 0.1
+  intermediate_loss_weight: 0.1
+  offset_reg_r: 0.1
+  offset_reg_w: 0.05
+  perceptual_loss_weight: 0.1
+  lr_multipliers:
+    feature_extractor: 1.0
+  ssim_loss_weight: 0.1
+render:
+  aspect_ratio: 1
+  fov: 51.98948897809546
+  zfar: 1.8
+  znear: 0.8
